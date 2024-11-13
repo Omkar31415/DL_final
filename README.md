@@ -1,7 +1,5 @@
-# Data-driven Feature Tracking for Event Cameras
-
-<p align="center"># DL_final_Team1
-## Project #1: Data-Driven Feature Tracking for Aerial Imagery 
+# DL_final_Team1
+## Project #1: Extending Data-Driven Feature Tracking with High-Fidelity Image Reconstruction for Event-Based Vision Systems
 
 **Core Objective:**
 - Adapt and apply event camera-based feature tracking methods to aerial imagery for accurate camera position estimation.
