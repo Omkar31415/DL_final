@@ -1,32 +1,37 @@
 # DL_final_Team1
 ## Project #1: Extending Data-Driven Feature Tracking with High-Fidelity Image Reconstruction for Event-Based Vision Systems
 
+
 **Core Objective:**
-- Adapt and apply event camera-based feature tracking methods to aerial imagery for accurate camera position estimation.
 
-**Main Components:**
-*Feature Detection System*
-- Implement Messikommer's 2023 CVPR feature tracking approach
-- Modify the event camera technique for aerial image analysis
+Adapt and apply event camera-based motion estimation techniques to drone-acquired imagery for high-precision camera pose estimation.
 
-*Feature Tracking*
-- Create continuous feature tracks across image sequences
-- Utilize frame attention for improved track consistency
+Main Components:
 
-*3D Reconstruction*
-- Convert feature tracks into Structure-from-Motion (SfM) inputs
-- Use COLMAP/BA4S to determine camera positions
-- Validate accuracy of 3D position estimates
+Feature Detection System:
 
-**Required Outputs:**
-- Documented methodology and findings
-- Performance metrics
-- Implementation code with documentation
-- Quality assessment of camera position estimates
+- Implement Messikommer's 2023 CVPR feature matching method
+- Adjust the event camera methodology to enhance aerial image data analysis
 
-This project essentially aims to bridge event camera tracking techniques with traditional aerial photography to achieve more reliable camera position estimation. You'll be working with both event and RGB camera data, with the main challenge being the adaptation of Messikommer's event-based approach to aerial imagery.
+Feature Tracking
 
----
+- Develop stable feature tracks throughout continuous image sequences
+- Integrate temporal attention mechanisms to boost tracking accuracy across frames
+
+3D Reconstruction
+
+- Convert feature tracks into viable Structure-from-Motion (SfM) inputs
+- Employ OpenMVG/OpenMVS for precise camera pose estimation
+- Validate the accuracy of generated 3D reconstructions
+
+Required Outputs:
+
+- Detailed methodology and results in documentation
+- Comprehensive performance metrics
+- Implemented code with thorough documentation
+- Evaluation of the reliability and accuracy of camera pose estimations
+
+This project aims to integrate event-based motion estimation with conventional drone imagery to enhance camera pose accuracy. The work will involve using both event and RGB camera data, with the main goal being to adapt /messikommer's approach to aerial image sequences effectively.
 
 ## Content to get the project running.
 
