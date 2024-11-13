@@ -1,44 +1,36 @@
 # Data-driven Feature Tracking for Event Cameras
 
-<p align="center">
- <a href="https://youtu.be/dtkXvNXcWRY">
-  <img src="doc/thumbnail.PNG" alt="youtube_video" width="800"/>
- </a>
-</p>
+<p align="center"># DL_final_Team1
+## Project #1: Data-Driven Feature Tracking for Aerial Imagery 
 
-This is the code for the CVPR23 paper **Data-driven Feature Tracking for Event Cameras**
-([PDF](https://rpg.ifi.uzh.ch/docs/Arxiv22_Messikommer.pdf)) by [Nico Messikommer\*](https://messikommernico.github.io/), [Carter Fang\*](https://ctyfang.github.io/), [Mathis Gehrig](https://magehrig.github.io/), and [Davide Scaramuzza](http://rpg.ifi.uzh.ch/people_scaramuzza.html).
-For an overview of our method, check out our [video](https://youtu.be/dtkXvNXcWRY).
+**Core Objective:**
+- Adapt and apply event camera-based feature tracking methods to aerial imagery for accurate camera position estimation.
 
-If you use any of this code, please cite the following publication:
+**Main Components:**
+*Feature Detection System*
+- Implement Messikommer's 2023 CVPR feature tracking approach
+- Modify the event camera technique for aerial image analysis
 
-```bibtex
-@Article{Messikommer23cvpr,
-  author  = {Nico Messikommer* and Carter Fang* and Mathias Gehrig and Davide Scaramuzza},
-  title   = {Data-driven Feature Tracking for Event Cameras},
-  journal = {IEEE Conference on Computer Vision and Pattern Recognition},
-  year    = {2023},
-}
-```
+*Feature Tracking*
+- Create continuous feature tracks across image sequences
+- Utilize frame attention for improved track consistency
 
-## Abstract
+*3D Reconstruction*
+- Convert feature tracks into Structure-from-Motion (SfM) inputs
+- Use COLMAP/BA4S to determine camera positions
+- Validate accuracy of 3D position estimates
 
-Because of their high temporal resolution, increased resilience to motion blur, and very sparse output, event cameras have been shown to be ideal for low-latency and low-bandwidth feature tracking, even in challenging scenarios.
-Existing feature tracking methods for event cameras are either handcrafted or derived from first principles but require extensive parameter tuning, are sensitive to noise, and do not generalize to different scenarios due to unmodeled effects.
-To tackle these deficiencies, we introduce the first data-driven feature tracker for event cameras, which leverages low-latency events to track features detected in a grayscale frame.
-We achieve robust performance via a novel frame attention module, which shares information across feature tracks.
-By directly transferring zero-shot from synthetic to real data, our data-driven tracker outperforms existing approaches in relative feature age by up to 120% while also achieving the lowest latency.
-This performance gap is further increased to 130% by adapting our tracker to real data with a novel self-supervision strategy.
+**Required Outputs:**
+- Documented methodology and findings
+- Performance metrics
+- Implementation code with documentation
+- Quality assessment of camera position estimates
 
-<p align="center">
-  <img alt="ziggy" src="./doc/ziggy_in_the_arena_1350_1650-opt.gif" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="shapes_6dof" src="./doc/shapes_6dof_485_565_tracks.gif" width="45%">
-</p>
+This project essentially aims to bridge event camera tracking techniques with traditional aerial photography to achieve more reliable camera position estimation. You'll be working with both event and RGB camera data, with the main challenge being the adaptation of Messikommer's event-based approach to aerial imagery.
 
 ---
 
-## Content
+## Content to get the project running.
 
 This document describes the usage and installation for this repository.<br>
 
