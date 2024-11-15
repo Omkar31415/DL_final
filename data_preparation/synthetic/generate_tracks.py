@@ -1,9 +1,5 @@
-# TEST BY EVERYONE WORKING AS INTENDED.
-
-""" Script for generating feature tracks from the Multiflow dataset. """
 import multiprocessing
 import os
-import shutil
 from pathlib import Path
 
 import cv2
@@ -11,7 +7,6 @@ import fire
 import h5py
 import hdf5plugin
 import numpy as np
-from matplotlib import pyplot as plt
 from tqdm import tqdm
 
 # MultiFlow Image Dims
@@ -25,15 +20,15 @@ QUALITY_LEVEL = 0.3
 BLOCK_SIZE = 25
 K = 0.15
 USE_HARRIS_DETECTOR = False
-OUTPUT_DIR = None
 TRACK_NAME = "shitomasi_custom_v5"
 
 # Filtering
 MIN_TRACK_DISPLACEMENT = 5
 displacements_all = []
+lock = multiprocessing.Lock()  # Global lock for directory creation
 
 
-def generate_single_track(seq_dir, dt=0.01):
+def generate_single_track(seq_dir, output_dir, dt=0.01):
     tracks = []
     dt_us = dt * 1e6
 
@@ -43,9 +38,7 @@ def generate_single_track(seq_dir, dt=0.01):
     # Load reference image
     img_t0_p = seq_dir / "images" / "0400000.png"
     if img_t0_p.exists():
-        img_t0 = cv2.imread(
-            str(seq_dir / "images" / "0400000.png"), cv2.IMREAD_GRAYSCALE
-        )
+        img_t0 = cv2.imread(str(img_t0_p), cv2.IMREAD_GRAYSCALE)
     else:
         print(f"Sequence {seq_dir} has no reference image.")
         return
@@ -115,10 +108,16 @@ def generate_single_track(seq_dir, dt=0.01):
     filtered_tracks = filtered_tracks[sorted_idxs]
 
     # Write tracks to disk
-    tracks_dir = OUTPUT_DIR / split / seq_dir.stem / "tracks"
-    if not tracks_dir.exists():
-        tracks_dir.mkdir()
+    tracks_dir = output_dir / split / seq_dir.stem / "tracks"
+
+    # Use a lock to ensure safe directory creation across processes
+    with lock:
+        if not tracks_dir.exists():
+            print(f"Creating directory: {tracks_dir}")  # Debugging line
+            tracks_dir.mkdir(parents=True, exist_ok=True)
+
     output_path = tracks_dir / f"{TRACK_NAME}.gt.txt"
+    print(f"Saving track to: {output_path}")  # Debugging line
     np.savetxt(output_path, filtered_tracks)
 
 
@@ -133,15 +132,12 @@ def generate_tracks(dataset_dir, output_dir):
     :param dataset_dir: Directory path to multiflow dataset
     :param output_dir: Output directory to obtained tracks
     """
-    global OUTPUT_DIR
-
-    # Input and output pathing
     dataset_dir = Path(dataset_dir)
     assert dataset_dir.exists(), "Path to Multiflow dataset does not exist."
 
-    OUTPUT_DIR = Path(output_dir)
-    if not OUTPUT_DIR.exists():
-        OUTPUT_DIR.mkdir()
+    output_dir = Path(output_dir)
+    if not output_dir.exists():
+        output_dir.mkdir(parents=True)
 
     # Generate tracks
     for split in ["test", "train"]:
@@ -153,7 +149,8 @@ def generate_tracks(dataset_dir, output_dir):
 
         n_seqs = len(os.listdir(str(split_dir)))
         with multiprocessing.Pool(10) as p:
-            list(tqdm(p.imap(generate_single_track, split_dir.iterdir()), total=n_seqs))
+            # Pass split_dir and output_dir explicitly to avoid global state issues
+            list(tqdm(p.starmap(generate_single_track, [(seq_dir, output_dir) for seq_dir in split_dir.iterdir()]), total=n_seqs))
 
 
 if __name__ == "__main__":
