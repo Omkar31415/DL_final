@@ -1,7 +1,6 @@
-# TEST BY EVERYONE WORKING AS INTENDED.
-
 import multiprocessing
 import os
+import sys
 from pathlib import Path
 
 import cv2
@@ -11,6 +10,11 @@ import hdf5plugin
 import numpy as np
 from tqdm import tqdm
 
+# Add the project root directory to sys.path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))  # Adjust the path if necessary
+sys.path.append(project_root)
+
+# Now you can import from utils
 from utils.representations import VoxelGrid, events_to_voxel_grid
 from utils.utils import blosc_opts
 
