@@ -1,0 +1,11 @@
+conda create -n "dl" python=3.10.15 ipython
+
+conda activate dl
+
+pip install -r requirements.txt
+
+# Create 2 folders before (multiflow_dataset(train, test), multiflow_extras(empty))
+python data_preparation/synthetic/generate_tracks.py multiflow_dataset  multiflow_extras
+
+python data_preparation/synthetic/generate_event_representations.py multiflow_dataset  multiflow_extras time_surface
+
