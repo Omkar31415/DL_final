@@ -40,7 +40,7 @@ results_table.field_names = ["Inference Time"]
 corner_config = CornerConfig(30, 0.3, 15, 0.15, False, 11)
 
 EvalDatasetConfigDict = {
-    EvalDatasetType.EC: {"dt": 0.010, "root_dir": "C:\\Users\\vulla\\Downloads\\DL_Final\\DL_final_Team1\\ec_subseq"},
+    EvalDatasetType.EC: {"dt": 0.010, "root_dir": "C:\\Users\\vulla\\Downloads\\DL_Final\\DL_final_Team1\\ec_sample"},
     EvalDatasetType.EDS: {"dt": 0.005, "root_dir": "<path>"},
 }
 
@@ -49,10 +49,10 @@ EVAL_DATASETS = [
     #("rocket_earth_light_338_438", EvalDatasetType.EDS),
     #("ziggy_in_the_arena_1350_1650", EvalDatasetType.EDS),
     #("peanuts_running_2360_2460", EvalDatasetType.EDS),
-    ("shapes_translation_8_88", EvalDatasetType.EC),
-    ("shapes_rotation_165_245", EvalDatasetType.EC),
-    ("shapes_6dof_485_565", EvalDatasetType.EC),
-    ("boxes_translation_330_410", EvalDatasetType.EC),
+    #("shapes_translation_8_88", EvalDatasetType.EC),
+    #("shapes_rotation_165_245", EvalDatasetType.EC),
+    #("shapes_6dof_485_565", EvalDatasetType.EC),
+    #("boxes_translation_330_410", EvalDatasetType.EC),
     ("boxes_rotation_198_278", EvalDatasetType.EC),
 ]
 
