@@ -1,21 +1,22 @@
 hydra:
   run:
-    dir: <path>/${model.name}/${now:%Y-%m-%d_%H%M%S}
+    dir: ec_subseq/${model.name}/${now:%Y-%m-%d_%H%M%S}
 
-gt_path: <path>/gt_tracks
+gt_path: C:\\Users\\jagru\\Desktop\\Projects\\Project_1\\DL_final_Team1\\gt_tracks
 running_locally: False
 
 
-weights_path: <path>
+weights_path: C:\\Users\\jagru\\Desktop\\Projects\\Project_1\\DL_final_Team1\\pretrained_weights\\weights_finetuned_ec.ckpt
 
 track_name: shitomasi_custom
 representation: time_surfaces_v2_5
 patch_size: 31
-visualize: False
+visualize: True
 dt_track_vis: 0.2
 
 # Composing nested config with default
 defaults:
+  - _self_
   - model: correlation3_unscaled
 # Pytorch lightning trainer's argument
 trainer:

@@ -2,7 +2,18 @@ conda create -n "dl" python=3.10.15 ipython
 
 conda activate dl
 
+# Activate environment
+# or conda install
+pip install torch torchvision==0.13.1+cu113 torchaudio --index-url https://download.pytorch.org/whl/cu113
+# python
+# >>> import torch 
+# >>> torch.cuda.is_available()
+
 pip install -r requirements.txt
+
+pip uninstall pytorch-lightning
+pip install pytorch-lightning==1.9.0
+
 
 # Create 2 folders before (multiflow_dataset(train, test), multiflow_extras(empty))
 python data_preparation/synthetic/generate_tracks.py multiflow_dataset  multiflow_extras
