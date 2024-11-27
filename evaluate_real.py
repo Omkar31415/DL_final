@@ -21,6 +21,13 @@ from utils.track_utils import (
 )
 from utils.visualization import generate_track_colors, render_pred_tracks, render_tracks
 
+import sys
+sys.path.append('/Users/vulla/Downloads/DL_Final/DL_final_Team1')
+
+print("Current working directory:", os.getcwd())
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 # Configure GPU order
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 
@@ -33,15 +40,15 @@ results_table.field_names = ["Inference Time"]
 corner_config = CornerConfig(30, 0.3, 15, 0.15, False, 11)
 
 EvalDatasetConfigDict = {
-    EvalDatasetType.EC: {"dt": 0.010, "root_dir": "<path>"},
+    EvalDatasetType.EC: {"dt": 0.010, "root_dir": "C:\\Users\\vulla\\Downloads\\DL_Final\\DL_final_Team1\\ec_subseq"},
     EvalDatasetType.EDS: {"dt": 0.005, "root_dir": "<path>"},
 }
 
 EVAL_DATASETS = [
-    ("peanuts_light_160_386", EvalDatasetType.EDS),
-    ("rocket_earth_light_338_438", EvalDatasetType.EDS),
-    ("ziggy_in_the_arena_1350_1650", EvalDatasetType.EDS),
-    ("peanuts_running_2360_2460", EvalDatasetType.EDS),
+    #("peanuts_light_160_386", EvalDatasetType.EDS),
+    #("rocket_earth_light_338_438", EvalDatasetType.EDS),
+    #("ziggy_in_the_arena_1350_1650", EvalDatasetType.EDS),
+    #("peanuts_running_2360_2460", EvalDatasetType.EDS),
     ("shapes_translation_8_88", EvalDatasetType.EC),
     ("shapes_rotation_165_245", EvalDatasetType.EC),
     ("shapes_6dof_485_565", EvalDatasetType.EC),
@@ -93,12 +100,15 @@ def evaluate(model, sequence_dataset, dt_track_vis, sequence_name, visualize):
             imageio.mimsave(f"{sequence_name}_tracks_pred.gif", gif_img_arr)
 
     # Save predicted tracks
+    output_path = os.path.join(os.getcwd(), f"{sequence_name}.txt")
+    print(f"Saving predicted tracks to: {output_path}")
     np.savetxt(
-        f"{sequence_name}.txt",
+        output_path,
         tracks_pred.track_data,
         fmt=["%i", "%.9f", "%i", "%i"],
         delimiter=" ",
     )
+
 
     metrics = {}
     metrics["latency"] = sum(cuda_timers[sequence_dataset.sequence_name])
@@ -118,6 +128,7 @@ def track(cfg):
     model = hydra.utils.instantiate(cfg.model, _recursive_=False)
 
     state_dict = torch.load(cfg.weights_path, map_location="cuda:0")["state_dict"]
+
     model.load_state_dict(state_dict)
     if torch.cuda.is_available():
         model = model.cuda()
@@ -148,7 +159,7 @@ def track(cfg):
 
         dataset.override_keypoints(gt_start_corners)
 
-        metrics = evaluate(model, dataset, cfg.dt_track_vis, seq_name, cfg.visualize)
+        metrics = evaluate(model, dataset, cfg.dt_track_vis, seq_name,True)
 
         logger.info(f"=== DATASET: {seq_name} ===")
         logger.info(f"Latency: {metrics['latency']} s")
