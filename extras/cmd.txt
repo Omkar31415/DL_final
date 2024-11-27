@@ -1,8 +1,13 @@
 conda create -n "dl" python=3.10.15 ipython
 
-conda activate dl
+conda init
 
-pip install -r requirements.txt
+# Restart terminal
+
+conda activate dl
+pip install torch torchvision==0.13.1+cu113 torchaudio --index-url https://download.pytorch.org/whl/cu113
+
+conda install -r requirements.txt
 
 # Create 2 folders before (multiflow_dataset(train, test), multiflow_extras(empty))
 python data_preparation/synthetic/generate_tracks.py multiflow_dataset  multiflow_extras
