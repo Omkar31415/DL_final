@@ -5,6 +5,10 @@ import hydra
 import pytorch_lightning as pl
 import torch
 
+import sys
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__))) 
+sys.path.append(project_root)
+
 from utils.callbacks import IncreaseSequenceLengthCallback
 from utils.utils import *
 
@@ -14,7 +18,7 @@ torch.set_num_threads(1)
 torch.backends.cudnn.benchmark = True
 
 
-@hydra.main(config_path="configs", config_name="train_defaults")
+@hydra.main(config_path="configs", config_name="train_defaults", version_base="1.2")
 def train(cfg):
     pl.seed_everything(1234)
 
