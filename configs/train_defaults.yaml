@@ -1,10 +1,10 @@
 hydra:
   run:
-    dir:<path>/${data.name}/${model.name}/${experiment}/${now:%Y-%m-%d_%H%M%S}
+    dir: multiflow_train/${data.name}/${model.name}/${experiment}/${now:%Y-%m-%d_%H%M%S}
 
 # Composing nested config with default
 experiment: open_source
-track_name: shitomasi_custom
+track_name: shitomasi_custom_v5
 
 representation: time_surfaces_v2_5
 patch_size: 31
@@ -15,6 +15,7 @@ logging: True
 
 # Do not forget to set the learning rate for supervised or for pose finetuning in configs/optim/adam.yaml
 defaults:
+  - _self_
   - data: mf # [mf, pose_eds, pose_ec]
   - model: correlation3_unscaled
   - training: supervised_train # [supervised_train, pose_finetuning_train_ec, pose_finetuning_train_eds]
