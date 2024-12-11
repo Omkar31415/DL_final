@@ -1,0 +1,15 @@
+!pip install jupyterlab_widgets
+!pip install plotly bokeh
+!npm install -g ijavascript
+!ijsinstall
+
+!pip uninstall jupyter_contrib_nbextensions jupyter_contrib_core -y
+!pip install jupyter_contrib_nbextensions
+
+!pip install jupyter_nbextensions_configurator
+!jupyter nbextension enable --py widgetsnbextension
+#!jupyter nbextensions_configurator enable --user
+
+!pip install ipywidgets
+!pip install notebook ipywidgets
+#cmd: conda install -c conda-forge widgetsnbextension
