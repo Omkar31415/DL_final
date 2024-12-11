@@ -1,0 +1,8 @@
+https://github.com/cedric-scheerlinck/dvs_image_reconstruction
+
+https://github.com/uzh-rpg/deep_ev_tracker
+
+https://rpg.ifi.uzh.ch/docs/Arxiv24_Messikommer.pdf
+
+https://www.cedricscheerlinck.com/files/2018_scheerlinck_continuous-time_intensity_estimation.pdf
+
